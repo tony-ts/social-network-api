@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: social-network-api
+  main:
+    banner-mode: 'off'
+
+  r2dbc:
+    url: ${DATABASE.URL}
+    username: ${DATABASE.USER}
+    password: ${DATABASE.PASSWORD}
+    pool:
+      max-size: ${DATABASE.MAX_POOL_SIZE:10}
+      validation-query: select 1
+
+  liquibase:
+    change-log: classpath:/changelog/changelog.xml
+    url: ${DATABASE.URL}
+    user: ${DATABASE.USER}
+    password: ${DATABASE.PASSWORD}
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false # write milliseconds since epoch in the final json
+application:
+  jwtProperties:
+    secret: ${JWT.SECRET:MostSecretStringYouEverSeenInTheEntireWorld}
+    expiration: ${JWT.EXPIRATION:15M}
+  corsProperties:
+    allowedOrigins: ~
+    allowedMethods: '*'

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="001-create-table-user" author="a.tsitsinov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="USER"/>
+            </not>
+        </preConditions>
+        <createTable tableName="USER">
+            <column name="ID" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="USER_PK" nullable="false"/>
+            </column>
+            <column name="EMAIL" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PASSWORD" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FIRST_NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LAST_NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="BIRTHDATE" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="GENDER" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="INTERESTS" type="VARCHAR(255)"/>
+            <column name="CITY" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="001-create-table-friendship" author="a.tsitsinov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="FRIENDSHIP"/>
+            </not>
+        </preConditions>
+        <createTable tableName="FRIENDSHIP">
+            <column name="ID" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="FRIENDSHIP_PK" nullable="false"/>
+            </column>
+            <column name="FROM_USER" type="INT">
+                <constraints foreignKeyName="FK_USER_ID_FROM" references="USER(ID)"
+                             nullable="false"/>
+            </column>
+            <column name="TO_USER" type="INT">
+                <constraints foreignKeyName="FK_USER_ID_TO" references="USER(ID)"
+                             nullable="false"/>
+            </column>
+            <column name="STATUS" type="VARCHAR(25)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_DATE" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="UPDATED_DATE" type="TIMESTAMP"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

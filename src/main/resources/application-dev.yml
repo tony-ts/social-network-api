@@ -1,0 +1,20 @@
+spring:
+  r2dbc:
+    url: r2dbc:mysql://localhost:3306/sn
+    username: mysql
+    password: qwerty
+  liquibase:
+    change-log: classpath:/changelog/changelog.xml
+    url: jdbc:mysql://localhost:3306/sn
+    user: mysql
+    password: qwerty
+
+application:
+  corsProperties:
+    allowedOrigins: http://social-network.local
+    allowedMethods: '*'
+
+logging:
+  level:
+    com.edu.sna: DEBUG
+    org.springframework.r2dbc: DEBUG
